@@ -16,3 +16,4 @@ compete.toml
 template-cargo-lock.toml
 testcases/
 doc/
+*.swp
