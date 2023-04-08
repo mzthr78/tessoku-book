@@ -1,13 +1,11 @@
 use proconio::input;
-use std::collections::BinaryHeap;
-use std::cmp::Reverse;
 
 fn main() {
     input!{
         n: usize,
     }
 
-    let mut item = BinaryHeap::new();
+    let mut item = vec![];
 
     for _i in 0..n {
         input!{
@@ -17,11 +15,13 @@ fn main() {
             input!{
                 price: usize,
             }
-            item.push(Reverse(price));
+            item.push(price);
+            //item.sort();
         } else if q == 2 {
-            println!("{}", item.peek().unwrap().0);
+            println!("{}", item.iter().min().unwrap());
         } else if q == 3 {
-            item.pop();
-        }
+            let index = item.iter().position(|a| a==item.iter().min().unwrap()).unwrap();
+            item.remove(index);
+        } 
     }
 }
