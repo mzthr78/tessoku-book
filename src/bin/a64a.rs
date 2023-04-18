@@ -28,7 +28,6 @@ fn main() {
         if v[p] == -1 {
             v[p] = c;
             for &(pos, cost) in &g[p] {
-                if v[pos] != -1 { continue; }
                 heap.push(Reverse((c + cost, pos)));
             }
         }
