@@ -23,8 +23,14 @@ fn main() {
     sum[0] = 1;
 
     for i in 1..=n+1 {
-        let pl = x.binary_search(&(x[i]-r)).unwrap_or_else(|x| x);
-        let pr = x.binary_search(&(x[i]-l+1)).unwrap_or_else(|x| x) as isize - 1;
+        let pl = match x.binary_search(&(x[i]-r)) {
+            Ok(x) => x,
+            Err(x) => x,
+        };
+        let pr: isize = match x.binary_search(&(x[i]-l+1)) {
+            Ok(x) => x,
+            Err(x) => x,
+        } as isize - 1;
 
         if pr == -1 { dp[i] = 0; }
         else { dp[i] = sum[pr as usize]; }
