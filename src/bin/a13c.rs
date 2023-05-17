@@ -18,10 +18,8 @@ fn main() {
         p[i] = p[i-1];
 
         for j in p[i]..=n {
-            if a[j] <= k + a[i] {
+            if a[j] - a[i] <= k {
                 p[i] = j;
-            } else {
-                break;
             }
         }
     }
