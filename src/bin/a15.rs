@@ -1,56 +1,25 @@
-use proconio::input;
+use proconio::{fastout, input};
 
-fn binary_search(v: &Vec<usize>, k: usize) -> isize {
-    let mut l = 0;
-    let mut r = v.len() - 1;
-
-    let mut a: isize = -1;
-
-    while l <= r {
-        let m = (l + r) / 2;    
-        
-        if v[m] > k { r = m - 1; }
-        else if v[m] < k { l = m + 1; }
-        else { 
-            a = m as isize; 
-            break;
-        }
-    }
-
-    return a;
-}
-
+#[fastout]
 fn main() {
-    input! {
+    input!{
         n: usize,
         a: [usize; n],
     }
 
     let mut b = a.clone();
     b.sort();
+    b.dedup();
 
-    let mut c = Vec::new();
-    c.push(b[0]);
-    for i in 1..n {
-       if b[i] != b[i-1] { c.push(b[i]); } 
+    let mut c: Vec<usize> = vec![];
+    for i in 0..n {
+        c.push(b.binary_search(&a[i]).unwrap()+1);
     }
 
-    let mut x = vec!(0; n);
+    let mut s = "";
     for i in 0..n {
-        x[i] = binary_search(&c, a[i]) + 1;
-    }
-
-    /*
-    for i in 0..n {
-        print!("{} ", x[i]);
+        print!("{}{}", s, c[i]);
+        s = " ";
     }
     print!("\n");
-    */
-
-    let s = x
-        .iter()
-        .map(|x| x.to_string())
-        .collect::<Vec<String>>()
-        .join(" ");
-    println!("{}", s);
 }
