@@ -1,27 +1,8 @@
-// A14
-use proconio::input;
-use proconio::fastout;
-
-fn binary_search(v: &Vec<usize>, k: usize) -> isize {
-  let mut l = 0;
-  let mut r = v.len() - 1;
-
-  while l <= r {
-    let m = (l + r) / 2;
-
-    //println!("v={:?} m={}", v, m);
-    if v[m] > k && m > 0 { r = m - 1; }
-    else if v[m] < k { l = m + 1; }
-    else {
-      return m as isize;
-    }
-  }
-  return -1;
-}
+use proconio::{fastout, input};
 
 #[fastout]
 fn main() {
-    input! {
+    input!{
         n: usize,
         k: usize,
         a: [usize; n],
@@ -29,35 +10,40 @@ fn main() {
         c: [usize; n],
         d: [usize; n],
     }
-    
-    let mut x1: Vec<usize> = Vec::new();
-    let mut x2: Vec<usize> = Vec::new();
-    
+
+    let mut ab = vec![0; n*n];
+    let mut cd = vec![0; n*n];
+
     for i in 0..n {
         for j in 0..n {
-            x1.push(a[i] + b[j]);
-            x2.push(c[i] + d[j]);
+            ab[i*n+j] = a[i] + b[j];
+            cd[i*n+j] = c[i] + d[j];
         }
     }
 
-    x1.sort();
-    x2.sort();
+    ab.sort();
+    cd.sort();
 
-    //println!("{:?}", x1);
-    //println!("{:?}", x2);
-
-    let mut answer = "No";
-
-    //println!("x1={:?}", x1);
+    let mut ans = "No";
 
     for i in 0..n*n {
-        //println!("[{}] {}", i, x1[i]);
-        if k >= x1[i] && binary_search(&x2, k-x1[i]) > 0 {
-            answer = "Yes";
-            break;
+        let mut l = 0;
+        let mut r = n*n-1;
+
+        while l < r {
+            let m = (l + r) / 2;
+
+            if ab[i] + cd[m] == k {
+                ans = "Yes";
+                break;
+            } else if ab[i] + cd[m] > k {
+                r = m;
+            } else {
+                l = m + 1;
+            }
         }
+        if ans == "Yes" { break; }
     }
 
-    println!("{}", answer);
+    println!("{}", ans);
 }
-
