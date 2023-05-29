@@ -9,18 +9,27 @@ fn main() {
     }
 
     let mut dp = vec![];
+    let mut x = 0;
 
     for i in 0..n {
-        let pos = match dp.binary_search(&a[i]) {
+        let p = match dp.binary_search(&a[i]) {
             Ok(v) => v,
             Err(v) => v
         };
 
-        if pos == dp.len() {
+
+        if p == x {
             dp.push(a[i]);
+            x += 1;
         } else {
-            dp[pos] = a[i];
+            dp[p] = a[i];
         }
+        //println!("[{}] p={}, dp={:?}", i, p, dp);
     }
-    println!("{}", dp.len());
+
+    //println!("a={:?}", a);
+    //println!("dp={:?}", dp);
+    //println!("answer={}", x);
+    println!("{}", x);
 }
+
