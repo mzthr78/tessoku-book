@@ -4,32 +4,35 @@ use proconio::{fastout, input};
 fn main() {
     input!{
         n: usize,
-        a: [usize; n],
+        mut xy: [(usize, isize); n],
     }
 
-    let mut dp: Vec<usize> = vec![];
+    //xy.sort();
+    xy.sort_by_key(|xy| (xy.0, -xy.1));
+
+    let mut dp: Vec<(usize, isize)> = vec![];
 
     for i in 0..n {
-        let p = binary_search(&dp, a[i]);
+        let p = binary_search(&dp, xy[i].1);
 
         if p == dp.len() {
-            dp.push(a[i]);
+            dp.push(xy[i]);
         } else {
-            dp[p] = a[i];
+            dp[p] = xy[i];
         }
     }
 
     println!("{}", dp.len());
 }
 
-fn binary_search(a: &Vec<usize>, x: usize) -> usize {
+fn binary_search(a: &Vec<(usize, isize)>, x: isize) -> usize {
     let mut l = 0;
     let mut r = a.len();
 
     while l < r {
         let m = (l + r) / 2;
 
-        if a[m] < x {
+        if a[m].1 < x {
             l = m + 1;
         } else {
             r = m;

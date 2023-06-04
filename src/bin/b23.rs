@@ -13,6 +13,7 @@ fn main() {
     for i in 0..(1<<n) {
         for j in 0..n {
             for k in 0..n {
+                //if j == k { continue; }
                 if i & (1<<k) == 1<<k { continue; }
 
                 let a = dp[i|(1<<k)][k];
