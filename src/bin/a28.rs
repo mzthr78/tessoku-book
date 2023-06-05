@@ -7,20 +7,19 @@ fn main() {
         ta: [(char, isize); n],
     }
 
-    let x = 10000;
-    let mut answer = 0;
+    let mut ans: isize = 0;
 
-    for &(t, a) in ta.iter() {
-        match t {
-            '+' => answer += a,
-            '-' => answer -= a,
-            '*' => answer *= a,
-            _ => continue,
+    for (t, a) in ta {
+        if t == '+' {
+            ans += a;
+        } else if t == '-' {
+            ans -= a;
+        } else if t == '*' {
+            ans *= a;
         }
-        
-        if answer < 0 { answer += x };
-        answer %= x;
-        
-        println!("{}", answer);
+        if ans < 0 { ans += 10000; }
+        ans %= 10000;
+
+        println!("{}", ans);
     }
 }
