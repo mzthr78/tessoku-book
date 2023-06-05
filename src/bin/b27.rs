@@ -7,6 +7,8 @@ fn main() {
         mut b: usize,
     }
 
+    let c = a * b;
+
     while a > 0 && b > 0 {
         if a >= b {
             a %= b;
@@ -15,9 +17,6 @@ fn main() {
         }
     }
 
-    if a != 0 {
-        println!("{}", a);
-    } else {
-        println!("{}", b);
-    }
+    //println!("{}", c / (if a != 0 { a } else { b }));
+    println!("{}", c / (a | b));
 }
