@@ -7,9 +7,9 @@ fn main() {
         b: usize,
     }
 
-    let mut ans = 1;
+    let mut ans: usize = 1;
 
-    for i in 0..=30 {
+    for i in 0..60 {
         if (b & (1<<i)) == 1<<i {
             ans = ans * a % 1_000_000_007;
         }
