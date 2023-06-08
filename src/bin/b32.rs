@@ -4,15 +4,19 @@ use proconio::{fastout, input};
 fn main() {
     input!{
         n: usize,
-        a: usize,
-        b: usize,
+        k: usize,
+        a: [usize; k],
     }
 
     let mut dp = vec![false; n+1];
 
     for i in 0..=n {
-        if (i >= a && !dp[i-a]) || (i >= b && !dp[i-b]) { dp[i] = true; }
-        //else { dp[i] = false; }
+        for j in 0..k {
+            if i >= a[j] && !dp[i-a[j]] {
+                dp[i] = true;
+                break;
+            }
+        }
     }
 
     if dp[n] {
