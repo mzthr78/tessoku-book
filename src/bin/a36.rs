@@ -7,6 +7,9 @@ fn main() {
         k: usize,
     }
 
-    if k >= n * 2 - 2 && k % 2 == 0 { println!("Yes"); }
-    else { println!("No"); }
+    if k >= (n - 1) * 2 && k % 2 == 0 {
+        println!("Yes");
+    } else {
+        println!("No");
+    }
 }

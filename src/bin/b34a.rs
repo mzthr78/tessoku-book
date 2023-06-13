@@ -9,14 +9,15 @@ fn main() {
         a: [usize; n],
     }
 
-    let gr = vec![0, 0, 1, 1, 2];
-    let mut x = 0;
+    let mut s = 0;
 
     for i in 0..n {
-        x ^= gr[a[i] % 5];
+        if a[i] % 5 == 0 || a[i] % 5 == 1 { s ^= 0; }
+        else if a[i] % 5 == 2 || a[i] % 5 == 3 { s ^= 1; }
+        else { s ^= 2; }
     }
 
-    if x != 0 {
+    if s != 0 {
         println!("First");
     } else {
         println!("Second");
