@@ -7,15 +7,15 @@ fn main() {
         a: [usize; n],
     }
 
-    let mut xor_sum = a[0];
+    let mut x = a[0];
 
     for i in 1..n {
-        xor_sum ^= a[i];
+        x ^= a[i];
     }
 
-    if xor_sum != 0 {
-        println!("First");
-    } else {
+    if x == 0 {
         println!("Second");
+    } else {
+        println!("First");
     }
 }

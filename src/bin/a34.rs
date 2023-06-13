@@ -9,25 +9,28 @@ fn main() {
         a: [usize; n],
     }
 
-    let mut grundy = vec![0; 100001];
+    let mut gr = vec![0; 100000+1];
 
     for i in 0..=100000 {
-        let mut transit = vec![false; 3];
+        let mut tr = vec![false; 3];
 
-        if i >= x { transit[grundy[i-x]] = true; }
-        if i >= y { transit[grundy[i-y]] = true; }
+        if i >= x { tr[gr[i-x]] = true; }
+        if i >= y { tr[gr[i-y]] = true; }
 
-        if !transit[0] { grundy[i] = 0; }
-        else if !transit[1] { grundy[i] = 1; }
-        else { grundy[i] = 2; }
+        if !tr[0] { gr[i] = 0; }
+        else if !tr[1] { gr[i] = 1; }
+        else { gr[i] = 2; }
     }
 
-    let mut xor_sum = 0;
+    let mut s = 0;
 
-    for i in 1..=n {
-        xor_sum ^= grundy[a[i-1]];
+    for i in 0..n {
+        s ^= gr[a[i]];
     }
 
-    if xor_sum != 0 { println!("First"); }
-    else { println!("Second"); }
+    if s != 0 {
+        println!("First");
+    } else {
+        println!("Second");
+    }
 }
