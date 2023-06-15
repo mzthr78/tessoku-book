@@ -1,5 +1,5 @@
 use proconio::{fastout, input};
-use std::cmp;
+//use std::cmp::min;
 
 #[fastout]
 fn main() {
@@ -9,17 +9,18 @@ fn main() {
         lrh: [(usize, usize, usize); n],
     }
 
-    let mut x = vec![24; d+1];
+    let mut m = vec![24; d+1];
 
-    for &(l, r, h) in &lrh {
+    for (l, r, h) in lrh {
         for i in l..=r {
-            x[i] = cmp::min(x[i], h);
+            m[i] = m[i].min(h);
         }
     }
 
     let mut ans = 0;
+
     for i in 1..=d {
-        ans += x[i];
+        ans += m[i];
     }
 
     println!("{}", ans);

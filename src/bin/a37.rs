@@ -10,17 +10,8 @@ fn main() {
         c: [usize; m],
     }
 
-    let mut ans: usize = 0;
+    let sum_a: usize = a.iter().sum();
+    let sum_c: usize = c.iter().sum();
 
-    for i in 0..n {
-        ans += a[i] * m;
-    }
-
-    ans += b * n * m;
-
-    for i in 0..m {
-        ans += c[i] * n;
-    }
-
-    println!("{}", ans);
+    println!("{}", sum_a * m + b * m * n + sum_c * n);
 }
