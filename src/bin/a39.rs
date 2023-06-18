@@ -7,14 +7,15 @@ fn main() {
         mut lr: [(usize, usize); n],
     }
 
-    lr.sort_by(|a, b| a.1.cmp(&(b.1)));
+    lr.sort_by_key(|lr| lr.1);
 
-    let mut now = 0;
     let mut ans = 0;
-    for &(l, r) in &lr {
-        if l < now { continue; }
-        now = r;
+    let mut pr = 0;
+
+    for (l, r) in lr {
+        if l < pr { continue; }
         ans += 1;
+        pr = r;
     }
 
     println!("{}", ans);
