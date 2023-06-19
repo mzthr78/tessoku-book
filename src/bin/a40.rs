@@ -3,19 +3,22 @@ use proconio::{fastout, input};
 #[fastout]
 fn main() {
     input!{
-        n: i64,
-        a: [usize; n],
+        n: usize,
     }
 
-    let mut x : Vec<i64> = vec![0; 101];
+    let mut ai = vec![0; 100+1];
 
-    for &i in &a {
-        x[i] += 1;
+    for _ in 0..n {
+        input!{
+            a: usize,
+        }
+        ai[a] += 1;
     }
 
-    let mut ans : i64 = 0;
-    for i in 1..=100 {
-        ans += (x[i] * (x[i]-1) * (x[i]-2)) / (3 * 2 * 1);
+    let mut ans: isize = 0;
+
+    for i in ai {
+        ans += (i * (i-1) * (i-2)) / (3 * 2 * 1);
     }
 
     println!("{}", ans);

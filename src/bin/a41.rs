@@ -7,9 +7,9 @@ fn main() {
         s: String,
     }
 
-    let mut ans = "No";
-
-    if s.contains("RRR") || s.contains("BBB") { ans = "Yes"; }
-
-    println!("{}", ans);
+    if s.contains("RRR") || s.contains("BBB") {
+        println!("Yes");
+    } else {
+        println!("No");
+    }
 }
