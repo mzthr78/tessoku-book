@@ -1,5 +1,5 @@
 use proconio::{fastout, input};
-use std::cmp;
+use std::cmp::max;
 
 #[fastout]
 fn main() {
@@ -10,17 +10,18 @@ fn main() {
     }
 
     let mut ans = 0;
-    for x in 1..=100 {
-        for y in 1..=100 {
-            let mut score = 0;
+
+    for i in 1..=100 {
+        for j in 1..=100 {
+            let mut tmp = 0;
 
             for &(a, b) in &ab {
-                if a >= x && a <= x+k && b >= y && b <= y+k {
-                    score += 1;
+                if a >= i && a <= (i + k) && b >= j && b <= (j + k) {
+                    tmp += 1;
                 }
             }
 
-            ans = cmp::max(ans, score);
+            ans = max(ans, tmp);
         }
     }
 
