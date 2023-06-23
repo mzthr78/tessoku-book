@@ -1,22 +1,23 @@
 use proconio::{fastout, input};
-use std::cmp;
+use std::cmp::max;
 
 #[fastout]
 fn main() {
     input!{
         n: usize,
-        k: usize,
+        l: usize,
         ab: [(usize, char); n],
     }
 
-    let mut ans = 0;
-    for &(a, b) in &ab {
+    let mut m = 0;
+
+    for (a, b) in ab {
         if b == 'E' {
-            ans = cmp::max(ans, k - a);
+            m = max(m, l - a);
         } else {
-            ans = cmp::max(ans, a);
+            m = max(m, a);
         }
     }
 
-    println!("{}", ans);
+    println!("{}", m);
 }
