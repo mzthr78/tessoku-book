@@ -8,36 +8,30 @@ fn main() {
         q: usize,
     }
 
-    let mut a: Vec<usize> = (1..=n).collect();
-    let mut dir = true;
+    let mut a: Vec<usize> = (0..=n).collect();
+
+    let mut asc = true;
 
     for _ in 0..q {
         input!{
-            q0: usize,
+            query: usize,
         }
 
-        if q0 == 1 {
+        if query == 1 {
             input!{
-                q1: usize,
-                q2: usize,
+                mut x: usize,
+                y: usize,
             }
-            if dir {
-                a[q1-1] = q2;
-            } else {
-                a[n-q1] = q2;
-            }
-        } else if q0 == 2 { 
-            dir = !dir;
-        } else if q0 == 3 {
+            if !asc { x = n + 1 - x; }
+            a[x] = y;
+        } else if query == 2 {
+            asc = !asc;
+        } else if query == 3 {
             input!{
-                q1: usize,
+                mut x: usize,
             }
-
-            if dir {
-                println!("{}", a[q1-1]);
-            } else {
-                println!("{}", a[n-q1]);
-            }
+            if !asc { x = n + 1 - x; }
+            println!("{}", a[x]);
         }
     }
 }
