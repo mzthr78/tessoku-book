@@ -1,4 +1,5 @@
 use proconio::{fastout, input};
+use std::collections::HashMap;
 
 #[fastout]
 fn main() {
@@ -8,22 +9,24 @@ fn main() {
         a: String,
     }
 
-    let mut score = 0;
+    let wbr = ['W', 'B', 'R'];
+    /*
+    let score = HashMap::from([
+        ('W', 0),
+        ('B', 1),
+        ('R', 2),
+    ]);
+    */
+    let mut score = HashMap::new();
+    score.insert('W', 0);
+    score.insert('B', 1);
+    score.insert('R', 2);
+
+    let mut ans = 0;
+
     for b in a.chars() {
-        match b {
-            'W' => score += 0,
-            'B' => score += 1,
-            'R' => score += 2,
-            _ => continue,
-        }
+        ans += score.get(&b).unwrap();
     }
 
-    let mut ans = "No";
-
-    if score % 3 == 0 && c == 'W'
-    || score % 3 == 1 && c == 'B'
-    || score % 3 == 2 && c == 'R'
-        { ans = "Yes"; }
-
-    println!("{}", ans);
+    println!("{}", if wbr[ans % 3] == c { "Yes" } else { "No" });
 }
