@@ -1,33 +1,27 @@
 use proconio::{fastout, input};
 
-//#[fastout]
+#[fastout]
 fn main() {
     input!{
-        n: usize,
+        q: usize,
     }
 
-    let mut desk = vec![];
+    let mut v: Vec<String> = Vec::new();
 
-    for _i in 0..n {
+    for _ in 0..q {
         input!{
-            q: usize,
+            x: usize,
         }
 
-        match q {
-            1 => {
-                input!{
-                    title: String
-                }
-
-                desk.push(title);
-            },
-            2 => {
-                println!("{}", desk[desk.len()-1]);
-            },
-            3 => {
-                desk.pop();
-            },
-            _ => continue,
+        if x == 1 {
+            input!{
+                b: String,
+            }
+            v.push(b);
+        } else if x == 2 {
+            println!("{}", v.last().unwrap());
+        } else if x == 3 {
+            v.pop();
         }
     }
 }
