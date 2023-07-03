@@ -1,30 +1,28 @@
 use proconio::{fastout, input};
+use std::collections::VecDeque;
 
-//#[fastout]
+#[fastout]
 fn main() {
     input!{
         n: usize,
     }
 
-    let mut queue = vec![];
+    let mut v: VecDeque<String> = VecDeque::new();
 
-    for _i in 0..n {
+    for _ in 0..n {
         input!{
             q: usize,
         }
 
-        match q {
-            1 => {
-                input!{
-                    x: String,
-                }
-                queue.push(x);
-            },
-            2 => println!("{}", queue[0]),
-            3 => {
-                let _s = queue.remove(0);
-            },
-            _ => continue,
+        if q == 1 {
+            input!{
+                x: String,
+            }
+            v.push_back(x);
+        } else if q == 2 {
+            println!("{}", v.front().unwrap());
+        } else if q == 3 {
+            v.pop_front();
         }
     }
 }
