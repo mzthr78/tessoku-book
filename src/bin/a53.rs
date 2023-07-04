@@ -1,27 +1,29 @@
-use proconio::input;
+use proconio::{fastout, input};
 use std::collections::BinaryHeap;
 use std::cmp::Reverse;
 
+#[fastout]
 fn main() {
     input!{
         n: usize,
     }
 
-    let mut item = BinaryHeap::new();
+    let mut bh = BinaryHeap::new();
 
-    for _i in 0..n {
+    for _ in 0..n {
         input!{
             q: usize,
         }
+
         if q == 1 {
             input!{
-                price: usize,
+                x: usize,
             }
-            item.push(Reverse(price));
+            bh.push(Reverse(x));
         } else if q == 2 {
-            println!("{}", item.peek().unwrap().0);
+            println!("{}", bh.peek().unwrap().0);
         } else if q == 3 {
-            item.pop();
+            bh.pop();
         }
     }
 }
