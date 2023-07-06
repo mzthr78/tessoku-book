@@ -1,32 +1,26 @@
-use proconio::{input, fastout};
+use proconio::{fastout, input};
 use std::collections::BTreeSet;
 
 #[fastout]
 fn main() {
     input!{
         n: usize,
-        qx: [(usize, usize); n],
+        qx: [(usize, isize); n],
     }
 
-    let mut cards = BTreeSet::new();
+    let mut bs = BTreeSet::new();
 
-    for &(q, x) in &qx {
+    for (q, x) in qx {
         if q == 1 {
-            cards.insert(x);
+            bs.insert(x);
         } else if q == 2 {
-            cards.remove(&x);
+            bs.remove(&x);
         } else if q == 3 {
-            /*
-            match cards.range(x..).next() {
-                Some(y) => println!("{}", y),
-                None => println!("{}", -1),
-            }
-            */
-            if let Some(m) = cards.range(x..).next() {
-                println!("{}", m);
-            } else {
-                println!("{}", -1);
-            }
+            let ans = match bs.range(x..).next() {
+                Some(y) => y,
+                None => &-1,
+            };
+            println!("{}", ans);
         }
     }
 }
