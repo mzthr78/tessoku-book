@@ -3,14 +3,16 @@ use proconio::{fastout, input};
 #[fastout]
 fn main() {
     input!{
-        _n: usize,
+        n: usize,
         q: usize,
         s: String,
-        abcd: [(usize, usize, usize, usize); q],
+        lr: [(usize, usize); q],
     }
 
-    for (a, b, c, d) in abcd {
-        if &s[a-1..b] == &s[c-1..d] {
+    let t = &s.chars().rev().collect::<String>();
+
+    for (l, r) in lr {
+        if &s[l-1..r] == &t[n-r..=n-l] {
             println!("Yes");
         } else {
             println!("No");
