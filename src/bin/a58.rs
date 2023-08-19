@@ -1,40 +1,49 @@
 use proconio::{fastout, input};
-use std::cmp;
+use std::cmp::max;
 
-struct SegTree {
-    dat: Vec<usize>,
-    siz: usize,
+struct SegT {
+    s: usize,
+    v: Vec<usize>,
 }
 
-impl SegTree {
-    fn new(n: usize) -> SegTree {
+impl SegT {
+    fn new(n: usize) -> SegT {
         let mut tmp = 1;
+
         while tmp < n {
             tmp *= 2;
         }
 
-        SegTree {
-            dat: vec![0; tmp*2],
-            siz: tmp,
+        SegT {
+            s: tmp,
+            v: vec![0; tmp*2],
         }
     }
 
     fn update(&mut self, mut pos: usize, x: usize) {
-        pos = pos + self.siz - 1;
-        self.dat[pos] = x;
-        while pos >= 2 {
+        pos = pos + self.s - 1;
+
+        self.v[pos] = x;
+
+        while pos > 1 {
             pos /= 2;
-            self.dat[pos] = cmp::max(self.dat[pos*2], self.dat[pos*2+1]);
+
+            self.v[pos] = max(self.v[pos*2], self.v[pos*2+1]);
         }
     }
 
-    fn query(&self, l: usize, r: usize, a: usize, b: usize, u: usize) -> isize {
-        if r <= a || b <= l { return -1000000000; }
-        if l <= a && b <= r { return self.dat[u] as isize; }
-        let m = (a + b) / 2;
-        let ans_l = self.query(l, r, a, m, u * 2);
-        let ans_r = self.query(l, r, m, b, u * 2 + 1);
-        return cmp::max(ans_l, ans_r);
+    fn query(&self, l: usize, r: usize, s: usize, e: usize, i: usize) -> isize {
+        if r <= s || e <= l {
+            return -1;
+        } else if l <= s && e <= r {
+            return self.v[i] as isize;
+        } else {
+            let m = (s + e) / 2;
+            let ansl = self.query(l, r, s, m, i * 2);
+            //let ansr = self.query(l, r, m + 1, e, i * 2 + 1);
+            let ansr = self.query(l, r, m, e, i * 2 + 1);
+            return max(ansl, ansr);
+        }
     }
 }
 
@@ -42,29 +51,30 @@ impl SegTree {
 fn main() {
     input!{
         n: usize,
-        q: usize,
+        m: usize,
     }
 
-    let mut z: SegTree = SegTree::new(n);
+    let mut s = SegT::new(n);
 
-    for _ in 0..q {
+    for _ in 0..m {
         input!{
-           query: usize,
+            q: usize,
         }
 
-        if query == 1 {
+        if q == 1 {
             input!{
                 pos: usize,
                 x: usize,
             }
-            z.update(pos, x);
-        } else if query == 2 {
+            s.update(pos, x);
+        } else if q == 2 {
             input!{
                 l: usize,
                 r: usize,
             }
-            println!("{}", z.query(l, r, 1, z.siz+1, 1));
+            //let ans = s.query(l, r, 1, s.s, 1);
+            let ans = s.query(l, r, 1, s.s + 1, 1);
+            println!("{}", ans);
         }
     }
 }
-
